@@ -3,7 +3,7 @@
 
 (deftemplate koordinat
    (slot x)
-   (sloat y))
+   (slot y))
 
 (defrule reading-n
 	=>
