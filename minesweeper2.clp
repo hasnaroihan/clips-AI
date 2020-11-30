@@ -7,35 +7,12 @@
 ;   13518068 Wildan Zaim Syaddad
 
 ; Deftemplates
-(deftemplate ukuran
-   (slot n
-        (type INTEGER)))
-
-(deftemplate koordinat
-    (slot x
-        (type INTEGER))
-    (slot y
-        (type INTEGER)))
-
-(deftemplate opened
-    (slot koordinat))
-
-(deftemplate closed
-    (slot koordinat))
-
-(deftemplate bomb
-    (slot koordinat))
-
-(deftemplate bomb-around
-    (slot koordinat)
-    (slot bombs
-        (type INTEGER)))
 
 ; Reading size of board
 (defrule reading-n
 	=>
 	(printout t "Masukkan ukuran board: " )
-	(assert (ukuran (n (read)))))
+	(assert (ukuran (read))))
 
 ; Reading amount of bomb
 (defrule reading-bomb-amount
@@ -52,8 +29,8 @@
 	    (bind ?x (read))
 	    (printout t "Masukkan koordinat y: " )
 	    (bind ?y (read))
-        (assert (koordinat (x ?x) (y ?y)))
-        (assert (bomb (koordinat (x ?x) (y ?y))))))
+        (assert (koordinat ?x ?y))
+        (assert (bomb ?x ?y))))
 
 ; Generate board after assert size
 (defrule generate-board
@@ -61,10 +38,10 @@
     =>
     (loop-for-count (?cnt1 0 ?n) do
         (loop-for-count (?cnt2 0 ?n) do
-            (assert (koordinat (x ?cnt1) (y ?cnt2)))
-            (assert (closed (koordinat (x ?cnt1) (y ?cnt2))))))
-    (retract (closed (koordinat (x 0) (y 0))))
-    (assert (opened (koordinat (x 0) (y 0)))))
+            (assert (koordinat ?cnt1 ?cnt2))
+            (assert (closed (koordinat ?cnt1 ?cnt2)))))
+    (retract (closed (koordinat 0 0)))
+    (assert (opened (koordinat 0 0))))
 
 ; Generate bomb-around (koordinat bombs) after reading bomb coordinates
 
