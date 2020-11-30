@@ -14,6 +14,23 @@
 	(printout t "Masukkan ukuran board: " )
 	(assert (ukuran (read))))
 
+; Generate board after assert size
+(defrule generate-board
+    (ukuran ?n)
+    =>
+    (loop-for-count (?cnt1 0 ?n) do
+        (loop-for-count (?cnt2 0 ?n) do
+            (assert (koordinat ?cnt1 ?cnt2))
+            (assert (closed ?cnt1 ?cnt2)))))
+
+; Start the game
+(defrule start-game
+    (closed 0 0)
+    =>
+    (retract (closed 0 0))
+    (assert (opened 0 0))
+    )
+
 ; Reading amount of bomb
 (defrule reading-bomb-amount
     =>
@@ -29,19 +46,10 @@
 	    (bind ?x (read))
 	    (printout t "Masukkan koordinat y: " )
 	    (bind ?y (read))
-        (assert (koordinat ?x ?y))
+        ;(assert (koordinat ?x ?y))
         (assert (bomb ?x ?y))))
 
-; Generate board after assert size
-(defrule generate-board
-    (ukuran ?n)
-    =>
-    (loop-for-count (?cnt1 0 ?n) do
-        (loop-for-count (?cnt2 0 ?n) do
-            (assert (koordinat ?cnt1 ?cnt2))
-            (assert (closed (koordinat ?cnt1 ?cnt2)))))
-    (retract (closed (koordinat 0 0)))
-    (assert (opened (koordinat 0 0))))
+
 
 ; Generate bomb-around (koordinat bombs) after reading bomb coordinates
 
