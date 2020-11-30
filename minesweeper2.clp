@@ -28,7 +28,8 @@
     ?o <- (closed 0 0)
     =>
     (retract ?o)
-    (assert (opened 0 0))
+    (assert (opened 0 0)
+    (assert (status playing)))
     )
 
 ; Reading amount of bomb
@@ -63,6 +64,10 @@
 ; Win rule: count-flag = amount-bomb -> status Win
 
 ; Lose rule: (opened x y ) and (bomb x y) -> status Lose
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1991cd48c4705af22d59a0c01bbafe4f6200e55c
 ; Assert value of coordinate after generating bomb
 (defrule update-value
     (and (koordinat ?x ?y ?val)
@@ -75,7 +80,10 @@
     ; (assert (koordinat ?x ?y (+ (1 ?val))))
     (printout t "Bomb di " ?x " " ?y crlf))
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 1991cd48c4705af22d59a0c01bbafe4f6200e55c
 ; Generate bomb-around (koordinat bombs) after reading bomb coordinates
 
 ; Open if bomb-around (koordinat 0)
