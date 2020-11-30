@@ -33,7 +33,8 @@
             (assert (jumlah-bom-xy ?cnt1 ?cnt2 0))
             (assert (jumlah-flag-xy ?cnt1 ?cnt2 0))
             (assert (jumlah-closednotflagged ?cnt1 ?cnt2 8))
-            (assert (closed ?cnt1 ?cnt2)))))
+            (assert (closed ?cnt1 ?cnt2))
+            )))
 
 ; Start the game
 (defrule start-game
@@ -85,6 +86,13 @@
     (assert (status win)))
 
 ; Lose rule: (opened x y ) and (bomb x y) -> status Lose
+(defrule lose-game
+    (opened ?x ?y)
+    (bomb ?x ?y)
+    ?s <- (status playing)
+    =>
+    (retract ?s)
+    (assert (status lose)))
 
 ; Assert value of coordinate after generating bomb
 (defrule update-value
@@ -411,3 +419,13 @@
     (bind ?val4 (- ?val-?val2 1))
     (modify ?cf (jumlah-flag-xy ?x ?y ?val3))
     (modify ?cnf (jumlah-closednotflagged ?x ?y ?val4)))
+
+; Add to flag count if flagged x y also bomb x y
+(defrule add-flag
+    (flagged ?x ?y)
+    (bomb ?x ?y)
+    ?cf <- (flag-found ?n)
+    (status playing)
+    =>
+    (bind ?n2 (+ ?n 1))
+    (modify ?cf (flag-found ?n2)))
