@@ -20,7 +20,8 @@
     =>
     (loop-for-count (?cnt1 0 ?n) do
         (loop-for-count (?cnt2 0 ?n) do
-            (assert (koordinat ?cnt1 ?cnt2 0))
+            (assert (koordinat ?cnt1 ?cnt2))
+            (assert (jumlah-bom-xy ?cnt1 ?cnt2 0))
             (assert (closed ?cnt1 ?cnt2)))))
 
 ; Start the game
@@ -63,10 +64,7 @@
 ; Win rule: count-flag = amount-bomb -> status Win
 
 ; Lose rule: (opened x y ) and (bomb x y) -> status Lose
-<<<<<<< HEAD
 
-=======
->>>>>>> 1991cd48c4705af22d59a0c01bbafe4f6200e55c
 ; Assert value of coordinate after generating bomb
 (defrule update-value
     (and (koordinat ?x ?y ?val)
@@ -79,10 +77,7 @@
     ; (assert (koordinat ?x ?y (+ (1 ?val))))
     (printout t "Bomb di " ?x " " ?y crlf))
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 1991cd48c4705af22d59a0c01bbafe4f6200e55c
 ; Generate bomb-around (koordinat bombs) after reading bomb coordinates
 
 ; Open if bomb-around (koordinat 0)
