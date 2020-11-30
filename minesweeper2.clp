@@ -20,7 +20,8 @@
     =>
     (loop-for-count (?cnt1 0 ?n) do
         (loop-for-count (?cnt2 0 ?n) do
-            (assert (koordinat ?cnt1 ?cnt2 0))
+            (assert (koordinat ?cnt1 ?cnt2))
+            (assert (jumlah-bom-xy ?cnt1 ?cnt2 0))
             (assert (closed ?cnt1 ?cnt2)))))
 
 ; Start the game
