@@ -29,6 +29,7 @@
     =>
     (retract ?o)
     (assert (opened 0 0))
+    (assert (status Playing))
     )
 
 ; Reading amount of bomb
@@ -50,6 +51,9 @@
         (assert (bomb ?x ?y))))
 
 
+; Win rule: count-flag = amount-bomb -> status Win
+
+; Lose rule: (opened x y ) and (bomb x y) -> status Lose
 
 ; Generate bomb-around (koordinat bombs) after reading bomb coordinates
 
