@@ -20,7 +20,8 @@
     =>
     (loop-for-count (?cnt1 0 ?n) do
         (loop-for-count (?cnt2 0 ?n) do
-            (assert (koordinat ?cnt1 ?cnt2 0))
+            (assert (koordinat ?cnt1 ?cnt2))
+            (assert (nilai-koordinat ?cnt1 ?cnt2 0))
             (assert (closed ?cnt1 ?cnt2)))))
 
 ; Start the game
@@ -46,8 +47,9 @@
 	    (bind ?x (read))
 	    (printout t "Masukkan koordinat y: " )
 	    (bind ?y (read))
-        ;(assert (koordinat ?x ?y -9999))
-        (assert (bomb ?x ?y))))
+        ;(assert (koordinat ?x ?y))
+        (assert (bomb ?x ?y)))
+        (assert (nilai-koordinat ?x ?y -9999)))
 
 ; Assert value of coordinate after generating bomb
 (defrule update-value
@@ -58,7 +60,7 @@
     ; (x-1, y-1) (x-1, y+0) (x-1, y+1)
     ; (x+0, y-1) (x+0, y+0) (x+0, y+1)
     ; (x+1, y-1) (x+1, y+0) (x+1, y+1)
-    ; (assert (koordinat ?x ?y (+ (1 ?val))))
+    ;(assert (koordinat ?x ?y (+ (1 ?val))))
     (printout t "Bomb di " ?x " " ?y crlf))
 
 
