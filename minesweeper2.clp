@@ -28,7 +28,8 @@
     ?o <- (closed 0 0)
     =>
     (retract ?o)
-    (assert (opened 0 0))
+    (assert (opened 0 0)
+    (assert (status playing)))
     )
 
 ; Reading amount of bomb
@@ -49,7 +50,6 @@
         ;(assert (koordinat ?x ?y -9999))
         (assert (bomb ?x ?y))))
 
-<<<<<<< HEAD
 (defrule make-board
     (ukuran ?n)
     (bomb ?x ?y)
@@ -63,7 +63,7 @@
 ; Win rule: count-flag = amount-bomb -> status Win
 
 ; Lose rule: (opened x y ) and (bomb x y) -> status Lose
-=======
+
 ; Assert value of coordinate after generating bomb
 (defrule update-value
     (and (koordinat ?x ?y ?val)
@@ -75,8 +75,6 @@
     ; (x+1, y-1) (x+1, y+0) (x+1, y+1)
     ; (assert (koordinat ?x ?y (+ (1 ?val))))
     (printout t "Bomb di " ?x " " ?y crlf))
-
->>>>>>> 0ee4b865336672feb17c7a24e2ed0c9c8c246553
 
 ; Generate bomb-around (koordinat bombs) after reading bomb coordinates
 
