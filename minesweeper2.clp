@@ -61,7 +61,7 @@
     =>
     (loop-for-count (?cnt 0 ?n) do
         (loop-for-count (?cnt 0 ?n) do
-            (if (or (> 3 (- ?x ?cnt)) (> 3 (- ?y ?cnt))) then 
+            (if (and (> 2 (- ?x ?cnt)) (> 2 (- ?y ?cnt))) then 
                 (+ ?val 1))))
     )
 ; Win rule: count-flag = amount-bomb -> status Win
