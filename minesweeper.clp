@@ -49,15 +49,17 @@
 	=>
     (loop-for-count (?cnt 0 ?nbomb) do
 	    (printout t "Masukkan koordinat x: " )
-	    (bind ?x (read))
+	    (bind ?xs (read))
+        ;(assert (x ?xs))
 	    (printout t "Masukkan koordinat y: " )
-	    (bind ?y (read))
-        (assert (koordinat (x ?x) (y ?y)))
-        (assert (bomb (koordinat (x ?x) (y ?y))))))
+	    (bind ?ys (read))
+        ;(assert (y ?ys))
+        (assert (koordinat (x ?xs) (y ?ys)))
+        (assert (bomb (koordinat (x ?xs) (y ?ys))))))
 
 ; Generate board after assert size
 (defrule generate-board
-    (ukuran ?n)
+    (ukuran (n ?n))
     =>
     (loop-for-count (?cnt1 0 ?n) do
         (loop-for-count (?cnt2 0 ?n) do
