@@ -20,7 +20,7 @@
     =>
     (loop-for-count (?cnt1 0 ?n) do
         (loop-for-count (?cnt2 0 ?n) do
-            (assert (koordinat ?cnt1 ?cnt2))
+            (assert (koordinat ?cnt1 ?cnt2 0))
             (assert (closed ?cnt1 ?cnt2)))))
 
 ; Start the game
@@ -29,7 +29,6 @@
     =>
     (retract ?o)
     (assert (opened 0 0))
-    (assert (status Playing))
     )
 
 ; Reading amount of bomb
@@ -47,9 +46,10 @@
 	    (bind ?x (read))
 	    (printout t "Masukkan koordinat y: " )
 	    (bind ?y (read))
-        ;(assert (koordinat ?x ?y))
+        ;(assert (koordinat ?x ?y -9999))
         (assert (bomb ?x ?y))))
 
+<<<<<<< HEAD
 (defrule make-board
     (ukuran ?n)
     (bomb ?x ?y)
@@ -63,6 +63,20 @@
 ; Win rule: count-flag = amount-bomb -> status Win
 
 ; Lose rule: (opened x y ) and (bomb x y) -> status Lose
+=======
+; Assert value of coordinate after generating bomb
+(defrule update-value
+    (and (koordinat ?x ?y ?val)
+         (bomb ?x ?y))
+    =>
+    ; tambah nilai 1 untuk 8 koordinat disekitarnya
+    ; (x-1, y-1) (x-1, y+0) (x-1, y+1)
+    ; (x+0, y-1) (x+0, y+0) (x+0, y+1)
+    ; (x+1, y-1) (x+1, y+0) (x+1, y+1)
+    ; (assert (koordinat ?x ?y (+ (1 ?val))))
+    (printout t "Bomb di " ?x " " ?y crlf))
+
+>>>>>>> 0ee4b865336672feb17c7a24e2ed0c9c8c246553
 
 ; Generate bomb-around (koordinat bombs) after reading bomb coordinates
 
