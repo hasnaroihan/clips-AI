@@ -49,8 +49,9 @@
 	    (bind ?x (read))
 	    (printout t "Masukkan koordinat y: " )
 	    (bind ?y (read))
-        ;(assert (koordinat ?x ?y -9999))
-        (assert (bomb ?x ?y))))
+        ;(assert (koordinat ?x ?y))
+        (assert (bomb ?x ?y)))
+        (assert (jumlah-bom-xy ?x ?y -9999)))
 
 (defrule make-board
     ;update value tiap element disekitar bomb
@@ -61,8 +62,8 @@
     (loop-for-count (?cnt 0 ?n) do
         (loop-for-count (?cnt 0 ?n) do
             (if (or (> 3 (- ?x ?cnt)) (> 3 (- ?y ?cnt))) then 
-                koordinat ?cnt ?cnt ?val+1))))
-
+                (modify koordinat ?cnt ?cnt ?val+1))))
+    )
 ; Win rule: count-flag = amount-bomb -> status Win
 (defrule win-game
     (flag-found ?n)
@@ -83,7 +84,7 @@
     ; (x-1, y-1) (x-1, y+0) (x-1, y+1)
     ; (x+0, y-1) (x+0, y+0) (x+0, y+1)
     ; (x+1, y-1) (x+1, y+0) (x+1, y+1)
-    ; (assert (koordinat ?x ?y (+ (1 ?val))))
+    ;(assert (koordinat ?x ?y (+ (1 ?val))))
     (printout t "Bomb di " ?x " " ?y crlf))
 
 
