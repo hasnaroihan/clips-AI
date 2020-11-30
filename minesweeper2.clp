@@ -50,14 +50,15 @@
         (assert (bomb ?x ?y))))
 
 (defrule make-board
+    ;update value tiap element disekitar bomb
     (ukuran ?n)
     (bomb ?x ?y)
-
+    (koordinat ?x ?y ?val)
     =>
     (loop-for-count (?cnt 0 ?n) do
         (loop-for-count (?cnt 0 ?n) do
             (if (or (> 3 (- ?x ?cnt)) (> 3 (- ?y ?cnt))) then 
-                )))
+                koordinat ?cnt ?cnt ?val+1)))
     )
 ; Win rule: count-flag = amount-bomb -> status Win
 
