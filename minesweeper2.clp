@@ -25,9 +25,9 @@
 
 ; Start the game
 (defrule start-game
-    (closed 0 0)
+    ?o <- (closed 0 0)
     =>
-    (retract (closed 0 0))
+    (retract ?o)
     (assert (opened 0 0))
     )
 
