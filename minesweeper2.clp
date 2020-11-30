@@ -6,8 +6,8 @@
 ;   13518046 Ferdina Wiranti Afifah
 ;   13518068 Wildan Zaim Syaddad
 
-; Deftemplates
 
+; DEFRULE FOR INITIATION AND GAME STATUS
 ; Reading size of board
 (defrule reading-n
 	=>
@@ -31,6 +31,7 @@
     (retract ?o)
     (assert (opened 0 0)
     (assert (status playing)))
+    (assert (flag-found 0))
     )
 
 ; Reading amount of bomb
@@ -60,9 +61,16 @@
     (loop-for-count (?cnt 0 ?n) do
         (loop-for-count (?cnt 0 ?n) do
             (if (or (> 3 (- ?x ?cnt)) (> 3 (- ?y ?cnt))) then 
-                koordinat ?cnt ?cnt ?val+1)))
-    )
+                koordinat ?cnt ?cnt ?val+1))))
+
 ; Win rule: count-flag = amount-bomb -> status Win
+(defrule win-game
+    (flag-found ?n)
+    (amount-bomb ?n)
+    =>
+    ?s <- (status playing)
+    (retract ?s)
+    (assert (status win)))
 
 ; Lose rule: (opened x y ) and (bomb x y) -> status Lose
 
@@ -81,4 +89,74 @@
 
 ; Generate bomb-around (koordinat bombs) after reading bomb coordinates
 
+
+; DEFRULES WHEN STATUS IS PLAYING
 ; Open if bomb-around (koordinat 0)
+(defrule zero-tiles-East
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y 0)
+    (koordinat ?x+1 ?y)
+    (status playing)
+    =>
+    (assert (opened ?x+1 ?y)))
+(defrule zero-tiles-Southeast
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y 0)
+    (koordinat ?x+1 ?y-1)
+    (status playing)
+    =>
+    (assert (opened ?x+1 ?y-1)))
+(defrule zero-tiles-South
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y 0)
+    (koordinat ?x ?y-1)
+    (status playing)
+    =>
+    (assert (opened ?x ?y-1))
+    ?cor <- (closed ?x ?y-1)
+    (retract ?cor))
+(defrule zero-tiles-Southwest
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y 0)
+    (koordinat ?x-1 ?y-1)
+    (status playing)
+    =>
+    (assert (opened ?x-1 ?y-1))
+    ?cor <- (closed ?x-1 ?y-1)
+    (retract ?cor))
+(defrule zero-tiles-West
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y 0)
+    (koordinat ?x-1 ?y)
+    (status playing)
+    =>
+    (assert (opened ?x-1 ?y))
+    ?cor <- (closed ?x-1 ?y)
+    (retract ?cor))
+(defrule zero-tiles-Northwest
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y 0)
+    (koordinat ?x-1 ?y+1)
+    (status playing)
+    =>
+    (assert (opened ?x+1 ?y-1))
+    ?cor <- (closed ?x+1 ?y-1)
+    (retract ?cor))
+(defrule zero-tiles-North
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y 0)
+    (koordinat ?x ?y+1)
+    (status playing)
+    =>
+    (assert (opened ?x ?y+1))
+    ?cor <- (closed ?x ?y+1)
+    (retract ?cor))
+(defrule zero-tiles-Northeast
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y 0)
+    (koordinat ?x+1 ?y+1)
+    (status playing)
+    =>
+    (assert (opened ?x+1 ?y+1))
+    ?cor <- (closed ?x+1 ?y+1)
+    (retract ?cor))
