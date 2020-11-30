@@ -1,8 +1,0 @@
-; East: (koordinat ?x+1 ?y)
-; Southeast: (koordinat ?x+1 ?y-1)
-; South: (koordinat ?x ?y-1)
-; Southwest: (koordinat ?x-1 ?y-1)
-; West: (koordinat ?x-1 ?y)
-; Northwest: (koordinat ?x-1 ?y+1)
-; North: (koordinat ?x ?y+1)
-; Northeast: (koordinat ?x+1 ?y+1)
