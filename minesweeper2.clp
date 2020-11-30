@@ -429,3 +429,133 @@
     =>
     (bind ?n2 (+ ?n 1))
     (modify ?cf (flag-found ?n2)))
+  
+; flag coordinates
+(defrule flag-East
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y ?val&~0)
+    ?cf <- (jumlah-flag-xy ?x ?y ?val)
+    ?cnf <- (jumlah-closednotflagged ?x ?y ?val2)
+    ; cek koordinat
+    (koordinat ?x+1 ?y)
+    ?cl <- (closed ?x+1 ?y)
+    (not (flagged ?x+1 ?y))
+    (status playing)
+    =>
+    (assert (opened ?x+1 ?y))
+    (retract ?cl)
+    (bind ?val3 (- ?val2 1))
+    (modify ?cnf (jumlah-closednotflagged ?x ?y ?val3)))
+
+(defrule flag-Southeast
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y ?val&~0)
+    ?cf <- (jumlah-flag-xy ?x ?y ?val)
+    ?cnf <- (jumlah-closednotflagged ?x ?y ?val2)
+    ; cek koordinat
+    (koordinat ?x+1 ?y-1)
+    ?cl <- (closed ?x+1 ?y-1)
+    (not (flagged ?x+1 ?y-1))
+    (status playing)
+    =>
+    (assert (opened ?x+1 ?y-1))
+    (retract ?cl)
+    (bind ?val3 (- ?val2 1))
+    (modify ?cnf (jumlah-closednotflagged ?x ?y ?val3)))
+
+
+(defrule flag-South
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y ?val&~0)
+    ?cf <- (jumlah-flag-xy ?x ?y ?val)
+    ?cnf <- (jumlah-closednotflagged ?x ?y ?val2)
+    ; cek koordinat
+    (koordinat ?x ?y-1)
+    ?cl <- (closed ?x ?y-1)
+    (not (flagged ?x ?y-1))
+    (status playing)
+    =>
+    (assert (opened ?x ?y-1))
+    (retract ?cl)
+    (bind ?val3 (- ?val2 1))
+    (modify ?cnf (jumlah-closednotflagged ?x ?y ?val3)))
+
+(defrule flag-Southwest
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y ?val&~0)
+    ?cf <- (jumlah-flag-xy ?x ?y ?val)
+    ?cnf <- (jumlah-closednotflagged ?x ?y ?val2)
+    ; cek koordinat
+    (koordinat ?x-1 ?y-1)
+    ?cl <- (closed ?x-1 ?y-1)
+    (not (flagged ?x-1 ?y-1))
+    (status playing)
+    =>
+    (assert (opened ?x-1 ?y-1))
+    (retract ?cl)
+    (bind ?val3 (- ?val2 1))
+    (modify ?cnf (jumlah-closednotflagged ?x ?y ?val3)))
+
+(defrule flag-West
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y ?val&~0)
+    ?cf <- (jumlah-flag-xy ?x ?y ?val)
+    ?cnf <- (jumlah-closednotflagged ?x ?y ?val2)
+    ; cek koordinat
+    (koordinat ?x-1 ?y)
+    ?cl <- (closed ?x-1 ?y)
+    (not (flagged ?x-1 ?y))
+    (status playing)
+    =>
+    (assert (opened ?x-1 ?y))
+    (retract ?cl)
+    (bind ?val3 (- ?val2 1))
+    (modify ?cnf (jumlah-closednotflagged ?x ?y ?val3)))
+
+(defrule flag-Northwest
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y ?val&~0)
+    ?cf <- (jumlah-flag-xy ?x ?y ?val)
+    ?cnf <- (jumlah-closednotflagged ?x ?y ?val2)
+    ; cek koordinat
+    (koordinat ?x-1 ?y+1)
+    ?cl <- (closed ?x-1 ?y+1)
+    (not (flagged ?x-1 ?y+1))
+    (status playing)
+    =>
+    (assert (opened ?x-1 ?y+1))
+    (retract ?cl)
+    (bind ?val3 (- ?val2 1))
+    (modify ?cnf (jumlah-closednotflagged ?x ?y ?val3)))
+
+(defrule flag-North
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y ?val&~0)
+    ?cf <- (jumlah-flag-xy ?x ?y ?val)
+    ?cnf <- (jumlah-closednotflagged ?x ?y ?val2)
+    ; cek koordinat
+    (koordinat ?x ?y+1)
+    ?cl <- (closed ?x ?y+1)
+    (not (flagged ?x ?y+1))
+    (status playing)
+    =>
+    (assert (opened ?x ?y+1))
+    (retract ?cl)
+    (bind ?val3 (- ?val2 1))
+    (modify ?cnf (jumlah-closednotflagged ?x ?y ?val3)))
+
+(defrule flag-Northeast
+    (opened ?x ?y)
+    (jumlah-bom-xy ?x ?y ?val&~0)
+    ?cf <- (jumlah-flag-xy ?x ?y ?val)
+    ?cnf <- (jumlah-closednotflagged ?x ?y ?val2)
+    ; cek koordinat
+    (koordinat ?x+1 ?y+1)
+    ?cl <- (closed ?x+1 ?y+1)
+    (not (flagged ?x+1 ?y+1))
+    (status playing)
+    =>
+    (assert (opened ?x+1 ?y+1))
+    (retract ?cl)
+    (bind ?val3 (- ?val2 1))
+    (modify ?cnf (jumlah-closednotflagged ?x ?y ?val3)))
