@@ -50,7 +50,16 @@
         ;(assert (koordinat ?x ?y))
         (assert (bomb ?x ?y))))
 
+(defrule make-board
+    (ukuran ?n)
+    (bomb ?x ?y)
 
+    =>
+    (loop-for-count (?cnt 0 ?n) do
+        (loop-for-count (?cnt 0 ?n) do
+            (if (or (eq ?cnt (+ ?x 3)) (eq ?cnt (+ ?y 3))) then 
+                )))
+    )
 ; Win rule: count-flag = amount-bomb -> status Win
 
 ; Lose rule: (opened x y ) and (bomb x y) -> status Lose
