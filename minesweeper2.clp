@@ -51,6 +51,19 @@
         (assert (bomb ?x ?y)))
         (assert (nilai-koordinat ?x ?y -9999)))
 
+(defrule make-board
+    (ukuran ?n)
+    (bomb ?x ?y)
+
+    =>
+    (loop-for-count (?cnt 0 ?n) do
+        (loop-for-count (?cnt 0 ?n) do
+            (if (or (> 3 (- ?x ?cnt)) (> 3 (- ?y ?cnt))) then 
+                )))
+    )
+; Win rule: count-flag = amount-bomb -> status Win
+
+; Lose rule: (opened x y ) and (bomb x y) -> status Lose
 ; Assert value of coordinate after generating bomb
 (defrule update-value
     (and (koordinat ?x ?y ?val)
