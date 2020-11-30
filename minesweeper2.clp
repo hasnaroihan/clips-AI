@@ -28,10 +28,10 @@
 (defrule start-game
     ?o <- (closed 0 0)
     =>
-    (retract ?o)
-    (assert (opened 0 0)
+    (assert (opened 0 0))
     (assert (status playing))
     (assert (flag-found 0))
+    (retract ?o)
     )
 
 ; Reading amount of bomb
@@ -50,14 +50,14 @@
 	    (printout t "Masukkan koordinat y: " )
 	    (bind ?y (read))
         ;(assert (koordinat ?x ?y))
-        (assert (bomb ?x ?y)))
-        (assert (jumlah-bom-xy ?x ?y -9999)))
+        (assert (bomb ?x ?y))
+        (assert (jumlah-bom-xy ?x ?y -9999))))
 
 (defrule make-board
     ;update value tiap element disekitar bomb
     (ukuran ?n)
     (bomb ?x ?y)
-    (koordinat ?x ?y ?val)
+    (jumlah-bom-xy ?x ?y ?val)
     =>
     (loop-for-count (?cnt 0 ?n) do
         (loop-for-count (?cnt 0 ?n) do
