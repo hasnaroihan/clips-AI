@@ -41,7 +41,7 @@
 (defrule reading-coordinate
     (amount-bomb ?nbomb)
 	=>
-    (loop-for-count (?cnt 0 ?nbomb) do
+    (loop-for-count (?cnt 1 ?nbomb) do
 	    (printout t "Masukkan koordinat x: " )
 	    (bind ?x (read))
 	    (printout t "Masukkan koordinat y: " )
