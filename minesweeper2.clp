@@ -30,7 +30,7 @@
     =>
     (retract ?o)
     (assert (opened 0 0)
-    (assert (status playing)))
+    (assert (status playing))
     (assert (flag-found 0))
     )
 
@@ -68,8 +68,8 @@
 (defrule win-game
     (flag-found ?n)
     (amount-bomb ?n)
-    =>
     ?s <- (status playing)
+    =>
     (retract ?s)
     (assert (status win)))
 
@@ -98,66 +98,70 @@
     (jumlah-bom-xy ?x ?y 0)
     (koordinat ?x+1 ?y)
     (status playing)
+    ?cor <- (closed ?x+1 ?y)
     =>
-    (assert (opened ?x+1 ?y)))
+    (assert (opened ?x+1 ?y))
+    (retract ?cor))
 (defrule zero-tiles-Southeast
     (opened ?x ?y)
     (jumlah-bom-xy ?x ?y 0)
     (koordinat ?x+1 ?y-1)
     (status playing)
+    ?cor <- (closed ?x+1 ?y-1)
     =>
-    (assert (opened ?x+1 ?y-1)))
+    (assert (opened ?x+1 ?y-1))
+    (retract ?cor))
 (defrule zero-tiles-South
     (opened ?x ?y)
     (jumlah-bom-xy ?x ?y 0)
     (koordinat ?x ?y-1)
     (status playing)
+    ?cor <- (closed ?x ?y-1)
     =>
     (assert (opened ?x ?y-1))
-    ?cor <- (closed ?x ?y-1)
     (retract ?cor))
 (defrule zero-tiles-Southwest
     (opened ?x ?y)
     (jumlah-bom-xy ?x ?y 0)
     (koordinat ?x-1 ?y-1)
     (status playing)
+    ?cor <- (closed ?x-1 ?y-1)
     =>
     (assert (opened ?x-1 ?y-1))
-    ?cor <- (closed ?x-1 ?y-1)
     (retract ?cor))
 (defrule zero-tiles-West
     (opened ?x ?y)
     (jumlah-bom-xy ?x ?y 0)
     (koordinat ?x-1 ?y)
     (status playing)
+    ?cor <- (closed ?x-1 ?y)
     =>
     (assert (opened ?x-1 ?y))
-    ?cor <- (closed ?x-1 ?y)
     (retract ?cor))
 (defrule zero-tiles-Northwest
     (opened ?x ?y)
     (jumlah-bom-xy ?x ?y 0)
     (koordinat ?x-1 ?y+1)
     (status playing)
+    ?cor <- (closed ?x-1 ?y+1)
     =>
-    (assert (opened ?x+1 ?y-1))
-    ?cor <- (closed ?x+1 ?y-1)
+    (assert (opened ?x-1 ?y+1))
     (retract ?cor))
 (defrule zero-tiles-North
     (opened ?x ?y)
     (jumlah-bom-xy ?x ?y 0)
     (koordinat ?x ?y+1)
     (status playing)
+    ?cor <- (closed ?x-1 ?y+1)
     =>
     (assert (opened ?x ?y+1))
-    ?cor <- (closed ?x ?y+1)
     (retract ?cor))
 (defrule zero-tiles-Northeast
     (opened ?x ?y)
     (jumlah-bom-xy ?x ?y 0)
     (koordinat ?x+1 ?y+1)
     (status playing)
+    ?cor <- (closed ?x+1 ?y+1)
     =>
     (assert (opened ?x+1 ?y+1))
-    ?cor <- (closed ?x+1 ?y+1)
     (retract ?cor))
