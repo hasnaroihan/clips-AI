@@ -9,13 +9,13 @@
 ; Deftemplates
 (deftemplate ukuran
    (slot n
-        (type NUMBER)))
+        (type INTEGER)))
 
 (deftemplate koordinat
     (slot x
-        (type NUMBER))
+        (type INTEGER))
     (slot y
-        (type NUMBER)))
+        (type INTEGER)))
 
 (deftemplate opened
     (slot koordinat))
@@ -25,6 +25,11 @@
 
 (deftemplate bomb
     (slot koordinat))
+
+(deftemplate bomb-around
+    (slot koordinat)
+    (slot bombs
+        (type INTEGER)))
 
 ; Reading size of board
 (defrule reading-n
@@ -48,7 +53,7 @@
 	    (printout t "Masukkan koordinat y: " )
 	    (bind ?y (read))
         (assert (koordinat (x ?x) (y ?y)))
-        (assert (bomb (koordinat(x ?x) (y ?y))))))
+        (assert (bomb (koordinat (x ?x) (y ?y))))))
 
 ; Generate board after assert size
 (defrule generate-board
@@ -60,3 +65,7 @@
             (assert (closed (koordinat (x ?cnt1) (y ?cnt2))))))
     (retract (closed (koordinat (x 0) (y 0))))
     (assert (opened (koordinat (x 0) (y 0)))))
+
+; Generate bomb-around (koordinat bombs) after reading bomb coordinates
+
+; Open if bomb-around (koordinat 0)
